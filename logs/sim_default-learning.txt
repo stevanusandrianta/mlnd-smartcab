@@ -1,0 +1,922 @@
+/-----------------------------------------
+| State-action rewards from Q-Learning
+\-----------------------------------------
+
+('right', {'light': 'green', 'oncoming': None, 'right': None, 'left': 'right'})
+ -- None : 0.00
+ -- forward : -0.27
+ -- right : 0.00
+ -- left : 0.63
+
+('left', {'light': 'red', 'oncoming': 'forward', 'right': 'left', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : -0.16
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'right', 'right': 'forward', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -9.88
+
+('left', {'light': 'red', 'oncoming': None, 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : -5.04
+ -- right : 0.68
+ -- left : -4.83
+
+('left', {'light': 'red', 'oncoming': None, 'right': 'forward', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'forward', 'right': None, 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -9.54
+
+('left', {'light': 'red', 'oncoming': 'forward', 'right': None, 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : -0.07
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': 'left', 'right': 'right', 'left': None})
+ -- None : -2.52
+ -- forward : 0.53
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': None, 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.63
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': None, 'right': 'forward', 'left': 'right'})
+ -- None : -2.58
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': 'right', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : -0.18
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': None, 'right': 'left', 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.95
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': None, 'right': None, 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.98
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': None, 'right': 'forward', 'left': 'forward'})
+ -- None : 1.90
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': 'right', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.30
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': 'left', 'right': 'left', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -19.51
+
+('left', {'light': 'red', 'oncoming': 'right', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.59
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': None, 'right': None, 'left': None})
+ -- None : 0.11
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': None, 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.44
+ -- left : -5.35
+
+('left', {'light': 'green', 'oncoming': None, 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 1.97
+
+('right', {'light': 'red', 'oncoming': 'forward', 'right': 'forward', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.64
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'right', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -10.13
+
+('left', {'light': 'red', 'oncoming': 'forward', 'right': 'right', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : -20.45
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'left', 'right': None, 'left': None})
+ -- None : 1.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -5.25
+
+('right', {'light': 'red', 'oncoming': 'forward', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.06
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': None, 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 1.92
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': 'forward', 'right': 'forward', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -9.91
+
+('forward', {'light': 'green', 'oncoming': 'left', 'right': 'left', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.84
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'left', 'right': 'forward', 'left': None})
+ -- None : 1.21
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': 'forward', 'right': None, 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -10.32
+
+('right', {'light': 'red', 'oncoming': 'forward', 'right': 'left', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -20.18
+
+('left', {'light': 'red', 'oncoming': 'left', 'right': None, 'left': None})
+ -- None : 2.18
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -5.22
+
+('left', {'light': 'green', 'oncoming': 'right', 'right': 'forward', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -10.09
+
+('left', {'light': 'red', 'oncoming': 'right', 'right': None, 'left': 'forward'})
+ -- None : 0.94
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': 'left', 'right': 'left', 'left': 'forward'})
+ -- None : -2.12
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -0.06
+
+('right', {'light': 'red', 'oncoming': 'left', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.90
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': 'right', 'right': None, 'left': 'left'})
+ -- None : 0.33
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': None, 'right': 'forward', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.33
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': 'left', 'right': None, 'left': 'left'})
+ -- None : -0.25
+ -- forward : 0.00
+ -- right : 0.86
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': None, 'right': 'forward', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -20.01
+
+('left', {'light': 'red', 'oncoming': None, 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : -4.74
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': None, 'right': 'forward', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : -19.87
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': 'left', 'right': None, 'left': None})
+ -- None : -2.73
+ -- forward : 1.22
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': None, 'right': 'forward', 'left': 'left'})
+ -- None : -2.88
+ -- forward : 0.00
+ -- right : 0.03
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': 'right', 'right': None, 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.45
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'forward', 'right': 'forward', 'left': None})
+ -- None : 0.00
+ -- forward : -19.67
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': None, 'right': 'forward', 'left': 'forward'})
+ -- None : -2.71
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'left', 'right': None, 'left': 'right'})
+ -- None : 0.00
+ -- forward : -4.62
+ -- right : 0.82
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': None, 'right': None, 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.41
+ -- left : -0.01
+
+('left', {'light': 'green', 'oncoming': 'forward', 'right': 'left', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.63
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': 'right', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -9.81
+
+('right', {'light': 'green', 'oncoming': 'left', 'right': 'forward', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.05
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': None, 'right': 'left', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.23
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': 'left', 'right': None, 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.79
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': 'left', 'right': 'forward', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -20.27
+
+('right', {'light': 'green', 'oncoming': 'left', 'right': 'left', 'left': None})
+ -- None : -2.30
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.03
+
+('right', {'light': 'green', 'oncoming': 'left', 'right': 'forward', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.92
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': 'left', 'right': 'right', 'left': 'left'})
+ -- None : -0.33
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': None, 'right': 'forward', 'left': None})
+ -- None : 1.55
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': 'left', 'right': None, 'left': None})
+ -- None : -2.69
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 1.60
+
+('forward', {'light': 'red', 'oncoming': None, 'right': 'right', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'left', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.41
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': 'left', 'right': None, 'left': 'forward'})
+ -- None : 0.00
+ -- forward : -19.68
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': None, 'right': None, 'left': 'right'})
+ -- None : 1.83
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -4.81
+
+('right', {'light': 'green', 'oncoming': None, 'right': 'forward', 'left': None})
+ -- None : -2.13
+ -- forward : 0.00
+ -- right : 1.48
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'right', 'right': 'left', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.43
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'right', 'right': 'forward', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -20.48
+
+('right', {'light': 'green', 'oncoming': 'left', 'right': None, 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.82
+
+('forward', {'light': 'green', 'oncoming': None, 'right': 'forward', 'left': 'right'})
+ -- None : -2.24
+ -- forward : 0.00
+ -- right : 0.82
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': None, 'right': None, 'left': 'left'})
+ -- None : 0.39
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'right', 'right': 'forward', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -20.09
+
+('forward', {'light': 'green', 'oncoming': None, 'right': 'forward', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 1.71
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'left', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 1.44
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': None, 'right': 'left', 'left': 'forward'})
+ -- None : 1.24
+ -- forward : -19.83
+ -- right : 0.00
+ -- left : -20.00
+
+('forward', {'light': 'green', 'oncoming': None, 'right': None, 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.98
+
+('right', {'light': 'green', 'oncoming': 'forward', 'right': None, 'left': 'right'})
+ -- None : -2.73
+ -- forward : 0.00
+ -- right : 0.90
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'left', 'right': 'right', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.90
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': 'forward', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.43
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'right', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : -4.91
+ -- right : 0.57
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': None, 'right': None, 'left': 'forward'})
+ -- None : 1.97
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': 'right', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : -5.14
+ -- right : 0.00
+ -- left : -19.79
+
+('left', {'light': 'green', 'oncoming': 'forward', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -10.28
+
+('forward', {'light': 'green', 'oncoming': None, 'right': 'right', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.34
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': None, 'right': 'left', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.27
+
+('forward', {'light': 'red', 'oncoming': None, 'right': 'left', 'left': None})
+ -- None : 1.84
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': 'left', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : -5.37
+ -- right : 0.00
+ -- left : -4.96
+
+('forward', {'light': 'red', 'oncoming': 'right', 'right': 'left', 'left': 'forward'})
+ -- None : 0.68
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': None, 'right': 'forward', 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -19.79
+
+('forward', {'light': 'red', 'oncoming': 'left', 'right': None, 'left': 'forward'})
+ -- None : 1.47
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': None, 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : -0.02
+ -- left : 0.48
+
+('forward', {'light': 'red', 'oncoming': None, 'right': 'left', 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -5.02
+
+('forward', {'light': 'green', 'oncoming': 'left', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.74
+ -- right : 0.00
+ -- left : 1.28
+
+('right', {'light': 'green', 'oncoming': 'left', 'right': 'forward', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.47
+
+('forward', {'light': 'red', 'oncoming': None, 'right': None, 'left': None})
+ -- None : 1.63
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': None, 'right': 'right', 'left': None})
+ -- None : 0.00
+ -- forward : -5.31
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': None, 'right': 'left', 'left': 'left'})
+ -- None : 0.46
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': 'right', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.56
+ -- right : 0.00
+ -- left : -10.48
+
+('right', {'light': 'red', 'oncoming': None, 'right': 'right', 'left': None})
+ -- None : 0.00
+ -- forward : -5.48
+ -- right : 0.00
+ -- left : -4.77
+
+('left', {'light': 'green', 'oncoming': 'left', 'right': None, 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.43
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': None, 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 1.75
+
+('left', {'light': 'red', 'oncoming': None, 'right': None, 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.04
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': None, 'right': 'forward', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : -9.71
+ -- left : -19.84
+
+('forward', {'light': 'green', 'oncoming': 'forward', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.84
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'left', 'right': None, 'left': 'right'})
+ -- None : -2.06
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': 'left', 'right': None, 'left': 'left'})
+ -- None : -2.84
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': None, 'right': None, 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.08
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'forward', 'right': 'forward', 'left': 'forward'})
+ -- None : -2.86
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': None, 'right': 'forward', 'left': 'left'})
+ -- None : -2.38
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 1.11
+
+('forward', {'light': 'green', 'oncoming': 'left', 'right': 'forward', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.92
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': None, 'right': 'forward', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.73
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': 'right', 'right': 'left', 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.87
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': None, 'right': 'forward', 'left': None})
+ -- None : 0.00
+ -- forward : -20.16
+ -- right : 0.00
+ -- left : -20.14
+
+('left', {'light': 'green', 'oncoming': None, 'right': 'forward', 'left': 'forward'})
+ -- None : -2.20
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.89
+
+('left', {'light': 'red', 'oncoming': None, 'right': 'right', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -4.81
+
+('right', {'light': 'green', 'oncoming': 'forward', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.16
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': 'forward', 'right': None, 'left': 'left'})
+ -- None : 0.00
+ -- forward : 1.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'forward', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : -0.00
+ -- left : -4.90
+
+('left', {'light': 'red', 'oncoming': 'left', 'right': 'right', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.80
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': 'left', 'right': 'forward', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -19.54
+
+('right', {'light': 'green', 'oncoming': None, 'right': None, 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.51
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': 'left', 'right': 'left', 'left': 'forward'})
+ -- None : 0.50
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': None, 'right': 'left', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.66
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': None, 'right': 'forward', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.17
+ -- left : -20.47
+
+('forward', {'light': 'green', 'oncoming': None, 'right': 'left', 'left': 'forward'})
+ -- None : -2.39
+ -- forward : 0.83
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': None, 'right': 'left', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.02
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': None, 'right': None, 'left': 'left'})
+ -- None : 0.00
+ -- forward : 1.30
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': 'forward', 'right': None, 'left': None})
+ -- None : 0.01
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': 'left', 'right': 'right', 'left': None})
+ -- None : -2.07
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': None, 'right': 'left', 'left': 'forward'})
+ -- None : -0.07
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -20.10
+
+('left', {'light': 'green', 'oncoming': None, 'right': None, 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.84
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': None, 'right': None, 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.91
+
+('left', {'light': 'red', 'oncoming': None, 'right': None, 'left': 'left'})
+ -- None : 1.01
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'right', 'right': None, 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 1.35
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'right', 'right': None, 'left': 'left'})
+ -- None : -2.46
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': 'right', 'right': 'left', 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : -20.27
+
+('left', {'light': 'green', 'oncoming': 'right', 'right': 'forward', 'left': 'forward'})
+ -- None : -2.55
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'red', 'oncoming': None, 'right': None, 'left': 'left'})
+ -- None : 2.10
+ -- forward : -5.06
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': None, 'right': None, 'left': 'right'})
+ -- None : 0.00
+ -- forward : 0.26
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'red', 'oncoming': None, 'right': 'left', 'left': 'right'})
+ -- None : 0.00
+ -- forward : -5.44
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': 'forward', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : -5.44
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': 'forward', 'right': 'forward', 'left': 'left'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.90
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'left', 'right': None, 'left': 'forward'})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.65
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': None, 'right': 'left', 'left': 'right'})
+ -- None : -2.41
+ -- forward : 0.62
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': 'left', 'right': 'forward', 'left': None})
+ -- None : 1.08
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': 'forward', 'right': None, 'left': 'forward'})
+ -- None : 0.00
+ -- forward : -19.88
+ -- right : -9.80
+ -- left : -19.83
+
+('left', {'light': 'red', 'oncoming': None, 'right': 'left', 'left': 'forward'})
+ -- None : 0.98
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'green', 'oncoming': None, 'right': 'right', 'left': 'right'})
+ -- None : 0.00
+ -- forward : -0.09
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'left', 'right': None, 'left': 'left'})
+ -- None : 0.00
+ -- forward : 1.17
+ -- right : 0.00
+ -- left : 0.00
+
+('forward', {'light': 'green', 'oncoming': 'forward', 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 1.21
+ -- right : 0.00
+ -- left : 0.00
+
+('right', {'light': 'green', 'oncoming': None, 'right': 'left', 'left': None})
+ -- None : 0.00
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.13
+
+('right', {'light': 'red', 'oncoming': None, 'right': None, 'left': 'forward'})
+ -- None : 0.62
+ -- forward : -19.60
+ -- right : -10.47
+ -- left : -19.68
+
+('forward', {'light': 'green', 'oncoming': None, 'right': 'right', 'left': None})
+ -- None : 0.00
+ -- forward : 0.88
+ -- right : 0.00
+ -- left : 0.00
+
+('left', {'light': 'red', 'oncoming': 'right', 'right': 'left', 'left': 'left'})
+ -- None : 0.89
+ -- forward : 0.00
+ -- right : 0.00
+ -- left : 0.00
+
