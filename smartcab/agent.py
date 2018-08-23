@@ -42,7 +42,7 @@ class LearningAgent(Agent):
         # Update epsilon using a decay function of your choice
         self.time_iter += 1
 #         self.epsilon -= 0.05
-        self.epsilon = math.exp(-0.01 * self.alpha * self.time_iter)
+        self.epsilon = math.exp(-0.01 * 0.2 * self.time_iter)
         
         # Update additional class parameters as needed
         # If 'testing' is True, set epsilon and alpha to 0
@@ -135,7 +135,7 @@ class LearningAgent(Agent):
         if self.learning == False:
             action = self.valid_actions[random.randint(0,3)]
         else:
-            prob = random.randint(0,100)
+            prob = random.random()
             if prob < self.epsilon:
                 action = self.valid_actions[random.randint(0,3)]
             else:
@@ -155,8 +155,9 @@ class LearningAgent(Agent):
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
         
-        state_string = str(state)
-        self.Q[state_string][action] = ((1-self.alpha) * self.Q[state_string][action]) + (self.alpha * reward)
+        if self.learning:
+            state_string = str(state)
+            self.Q[state_string][action] = ((1-self.alpha) * self.Q[state_string][action]) + (self.alpha * reward)
 
         return
 
@@ -194,7 +195,7 @@ def run():
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
 #     agent = env.create_agent(LearningAgent, learning=True)
-    agent = env.create_agent(LearningAgent, learning=True, epsilon=0.8, alpha=0.2)
+    agent = env.create_agent(LearningAgent, learning=True, epsilon=0.8, alpha=0.6)
     
     ##############
     # Follow the driving agent
